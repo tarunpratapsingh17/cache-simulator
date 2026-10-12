@@ -1,0 +1,22 @@
+name: Build and test
+on: [push, pull_request]
+permissions:
+  contents: read
+jobs:
+  test:
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: cmake -S . -B build
+      - run: cmake --build build --config Release
+      - run: ctest --test-dir build -C Release --output-on-failure
+      - if: runner.os == 'Linux'
+        run: python tests/test_integration.py --binary build/cache_sim
+      - if: runner.os == 'Windows'
+        run: python tests/test_integration.py --binary build/Release/cache_sim.exe

@@ -1,0 +1,10 @@
+# Two sets, two ways each: run with --size 16 --line 4 --ways 2.
+# Expected LRU result: 8 records, 4 hits, 4 misses, 1 eviction, 1 writeback.
+R 0x00 4
+W 0x00 4
+R 0x08 4
+R 0x04 4
+R 0x08 4
+R 0x10 4
+R 0x04 4
+R 0x10 4

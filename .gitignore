@@ -1,0 +1,9 @@
+/build/
+/results/
+/traces/generated/
+__pycache__/
+*.obj
+*.pdb
+*.ilk
+*.exe
+.venv/
